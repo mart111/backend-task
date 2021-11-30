@@ -1,6 +1,5 @@
 package org.project.service.i18n.messages;
 
-import io.quarkus.qute.i18n.Localized;
 import io.quarkus.qute.i18n.Message;
 import io.quarkus.qute.i18n.MessageBundle;
 

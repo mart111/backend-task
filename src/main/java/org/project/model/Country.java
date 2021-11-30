@@ -1,7 +1,6 @@
 package org.project.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import lombok.Data;
 import lombok.NoArgsConstructor;
