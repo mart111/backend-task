@@ -20,7 +20,8 @@ public class CountryResResourceTest {
 
         // make sure that, the country doesn't exist in the table
         given()
-                .when().delete("/v1/api/country/delete?name=" + country.getCountryName())
+                .param("name", country.getCountryName())
+                .when().delete("/v1/api/country/delete")
                 .then()
                 .statusCode(200);
 
@@ -37,7 +38,8 @@ public class CountryResResourceTest {
     @Test
     public void testCountryExistence() {
         given()
-                .get("/v1/api/country?name=Bulgaria")
+                .param("name","Bulgaria")
+                .get("/v1/api/country")
                 .then()
                 .statusCode(200)
                 .contentType(ContentType.JSON)
