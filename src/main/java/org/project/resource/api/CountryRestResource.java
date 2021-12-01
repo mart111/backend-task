@@ -11,6 +11,11 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Objects;
+
+/**
+ * The CountryRestResource
+ */
 
 @Path("/v1/api")
 public class CountryRestResource {
@@ -24,18 +29,40 @@ public class CountryRestResource {
         this.countryService = countryService;
     }
 
+    /**
+     * Returns the JSON representation of the Country instance or empty JSON,
+     * if the country is null
+     *
+     * @param id the id of the country
+     * @return JSON representation of the {@link Country} or {@link org.project.model.Country.EmptyCountry} instance
+     */
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/country/{id}")
     public Response getCountryById(@PathParam String id) {
-        return Response.ok(countryService.getCountryById(id)).build();
+        Country country = countryService.getCountryById(id);
+        if (Objects.nonNull(country))
+            return Response.ok(country).build();
+        else return Response.ok(Country.EmptyCountry.getInstance()).build();
     }
+
+    /**
+     * Returns the JSON representation of the Country instance or empty JSON,
+     * if the country is null
+     *
+     * @param name name of the country
+     * @return JSON representation of the {@link Country} or {@link org.project.model.Country.EmptyCountry} instance
+     */
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/country")
     public Response getCountryByName(@QueryParam String name) {
-        return Response.ok(countryService.getCountryByName(name)).build();
+        Country country = countryService.getCountryByName(name);
+        if (Objects.nonNull(country))
+            return Response.ok(country).build();
+        else return Response.ok(Country.EmptyCountry.getInstance()).build();
     }
 
     @POST
@@ -56,6 +83,13 @@ public class CountryRestResource {
         }
     }
 
+    /**
+     * Updates the country. Consumes JSON representation of the {@link Country} object.
+     * The correct {@link Country#id} should be provided.
+     *
+     * @param country country object to be updated
+     * @return <i>Country Updated Successfully</i> if operation succeeded, otherwise <i>Failed to update country</i>
+     */
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -74,6 +108,12 @@ public class CountryRestResource {
         }
     }
 
+    /**
+     * Remove country by id
+     *
+     * @param id the id of the country
+     * @return This method always returned normally, unless exception throws
+     */
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/country/delete/{id}")
@@ -91,6 +131,13 @@ public class CountryRestResource {
         }
     }
 
+
+    /**
+     * Remove country by name
+     *
+     * @param name the name of the country
+     * @return This method always returned normally, unless exception throws
+     */
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/country/delete")

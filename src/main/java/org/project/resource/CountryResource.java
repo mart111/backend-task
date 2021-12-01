@@ -32,12 +32,14 @@ public class CountryResource {
     public TemplateInstance getCountryById(@PathParam String lang, @PathParam String id) {
         Country country = countryRestService.getCountryById(id);
         String countryName = CountryUtil.resolveLocalizedCountryName(country.getCountryNameAbbr(), lang);
+        countryName = countryName != null ? countryName : country.getCountryName();
         return home.instance()
                 .setAttribute(MessageBundles.ATTRIBUTE_LOCALE, lang)
                 .data("id", country.getId())
                 .data("name", countryName)
                 .data("createdAt", country.getCreatedAt())
-                .data("updatedAt", country.getUpdatedAt());
+                .data("updatedAt", country.getUpdatedAt())
+                .data("noCountry", false);
     }
 
     @GET
@@ -46,11 +48,13 @@ public class CountryResource {
     public TemplateInstance getCountryByName(@PathParam String lang, @QueryParam String name) {
         Country country = countryRestService.getCountryByName(name);
         String countryName = CountryUtil.resolveLocalizedCountryName(country.getCountryNameAbbr(), lang);
+        countryName = countryName != null ? countryName : country.getCountryName();
         return home.instance()
                 .setAttribute(MessageBundles.ATTRIBUTE_LOCALE, lang)
                 .data("id", country.getId())
                 .data("name", countryName)
                 .data("createdAt", country.getCreatedAt())
                 .data("updatedAt", country.getUpdatedAt());
+
     }
 }

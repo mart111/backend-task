@@ -47,4 +47,17 @@ public class CountryResResourceTest {
     }
 
 
+    @Test
+    public void testNonExistentCountryByName() {
+        String nonExistentCountry = "Lorem Ipsum";
+
+        given()
+                .param("name", nonExistentCountry)
+                .get("/v1/api/country")
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body(equalTo("{}")); // empty JSON
+    }
+
 }

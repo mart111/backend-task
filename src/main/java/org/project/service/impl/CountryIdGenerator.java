@@ -7,6 +7,12 @@ import org.project.model.Country;
 
 import java.io.Serializable;
 
+/**
+ * Hibernate custom Identifier generator.
+ * Following the format <b>fu:country:147</b>
+ * The trailing random number was generated using {@link Math#random()}
+ *
+ */
 public class CountryIdGenerator implements IdentifierGenerator {
 
     @Override
